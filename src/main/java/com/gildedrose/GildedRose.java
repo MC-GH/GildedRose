@@ -12,6 +12,12 @@ class GildedRose {
 
             String name = item.name;
 
+            if(name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+
+            }
+
+
+
             if (!name.equals("Aged Brie")
                     && !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                     if (!name.equals("Sulfuras, Hand of Ragnaros")) {
@@ -58,8 +64,27 @@ class GildedRose {
         if (item.quality < 50) item.quality++;
     }
 
+    public void increaseQuality(Item item, int frequency) {
+        for(int i = 0; i < frequency; i++) {
+            increaseQuality(item);
+        }
+    }
+
     public void decreaseSellIn(Item item) {
         item.sellIn--;
+    }
+
+    public void updateBackstagePassQuality(Item item) {
+        int sellIn = item.sellIn;
+        if(sellIn > 10) {
+            increaseQuality(item);
+        } else if (sellIn <= 10) {
+            increaseQuality(item, 2);
+        } else if (sellIn < 6) {
+            increaseQuality(item,3);
+        } else {
+            item.quality = 0;
+        }
     }
 
 }
