@@ -11,8 +11,6 @@ class GildedRose {
         for (Item item : items) {
 
             String name = item.name;
-            int sellIn = item.sellIn;
-            int quality = item.quality;
 
             if (!name.equals("Aged Brie")
                     && !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
@@ -42,7 +40,7 @@ class GildedRose {
             }
 
             if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                item.sellIn = item.sellIn - 1;
+                decreaseSellIn(item);
             }
 
             if (item.sellIn < 0) {
