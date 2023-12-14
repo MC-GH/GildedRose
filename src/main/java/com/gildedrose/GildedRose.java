@@ -12,9 +12,11 @@ class GildedRose {
 
             String name = item.name;
 
-            //Decrease sell in date by 1 for all items except Sulfuras
-            if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+            if (name.equals("Sulfuras, Hand of Ragnaros")) continue;
 
+            if (name.startsWith("Conjured")) {
+                decreaseQuality(item, 2);
+            } else {
                 switch (name) {
                     case "Backstage passes to a TAFKAL80ETC concert":
                         updateBackstagePassQuality(item);
@@ -26,9 +28,10 @@ class GildedRose {
                         decreaseQuality(item);
                         break;
                 }
-
-                decreaseSellIn(item);
             }
+
+            decreaseSellIn(item);
+        }
 
 
 //            if (!name.equals("Aged Brie")
@@ -66,12 +69,18 @@ class GildedRose {
 //                        increaseQuality(item);
 //                }
 //            }
-        }
     }
+
 
     public void decreaseQuality(Item item) {
         if (item.quality > 0) item.quality--;
         if (item.quality > 0 && item.sellIn <= 0) item.quality--;
+    }
+
+    public void decreaseQuality(Item item, int frequency) {
+        for (int i = 0; i < frequency; i++) {
+            decreaseQuality(item);
+        }
     }
 
     public void increaseQuality(Item item) {
