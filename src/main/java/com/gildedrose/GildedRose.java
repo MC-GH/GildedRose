@@ -14,7 +14,6 @@ class GildedRose {
 
             //Decrease sell in date by 1 for all items except Sulfuras
             if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                decreaseSellIn(item);
 
                 switch (name) {
                     case "Backstage passes to a TAFKAL80ETC concert":
@@ -25,8 +24,10 @@ class GildedRose {
                         break;
                     default:
                         decreaseQuality(item);
+                        break;
                 }
 
+                decreaseSellIn(item);
             }
 
 
@@ -90,14 +91,14 @@ class GildedRose {
     public void updateBackstagePassQuality(Item item) {
         int sellIn = item.sellIn;
 
-        if (sellIn < 0) {
-            item.quality = 0;
-        } else if (sellIn < 6) {
-            increaseQuality(item, 3);
-        } else if (sellIn < 11) {
-            increaseQuality(item, 2);
-        } else {
+        if (sellIn > 10) {
             increaseQuality(item);
+        } else if (sellIn > 5) {
+            increaseQuality(item, 2);
+        } else if (sellIn >= 0) {
+            increaseQuality(item, 3);
+        } else {
+            item.quality = 0;
         }
     }
 
